@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)https://3waashy23.github.io/Global-Data-%2D-Somtel-SuperApp/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Somtel Global Data</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<style>
+:root {
+  --bg:#f7f7f4; --card:#ffffff; --soft:#fff3b8; --soft2:#fff9dc; --yellow:#ffd700;
+  --line:rgba(201,152,20,.16); --text:#2a1f00; --muted:#8f7720; --shadow:0 6px 18px rgba(145,103,0,.08);
+}
+* { box-sizing:border-box; }
+body { margin:0; padding:20px; background:var(--bg); color:var(--text); font-family:Arial,sans-serif; }
+.wrap { max-width:480px; margin:0 auto; }
+.search { width:100%; padding:16px 18px; border-radius:18px; border:1px solid #ddd; background:#fff; font-size:14px; margin-bottom:16px; color:#666; }
+.toggle, .topnav { display:flex; gap:16px; margin-bottom:18px; }
+.toggle button, .topnav button { flex:1; height:46px; border-radius:999px; border:1px solid #e2d39a; background:#f5efcf; color:#7a6514; font-size:14px; font-weight:700; cursor:pointer; }
+.toggle button.active, .topnav button.active { background:var(--yellow); color:var(--text); }
+.card, .pkg-card, .pay-card, .esim-card { background:var(--card); border:1px solid rgba(201,152,20,.12); border-radius:28px; box-shadow:var(--shadow); padding:22px; margin-bottom:18px; }
+.title, .confirm-title { font-size:16px; font-weight:700; margin-bottom:8px; }
+.sub { font-size:14px; color:var(--muted); line-height:1.55; }
+.device-btn-row { display:flex; gap:14px; margin-top:16px; flex-wrap:wrap; }
+.device-btn { flex:1; min-width:150px; height:44px; border:none; border-radius:16px; background:var(--yellow); color:var(--text); font-weight:700; font-size:14px; cursor:pointer; }
+.warn-note, .terms-note, .small-note { margin-top:14px; font-size:14px; color:var(--muted); line-height:1.5; }
+.country-card { background:var(--card); border:1px solid rgba(201,152,20,.12); border-radius:28px; box-shadow:var(--shadow); padding:18px 20px; margin-bottom:18px; cursor:pointer; }
+.country-row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.country-left { display:flex; align-items:center; gap:12px; min-width:0; flex:1; }
+.flag { font-size:28px; line-height:1; }
+.country-name { font-size:15px; font-weight:700; line-height:1.2; }
+.from-line { font-size:13px; color:var(--muted); margin-top:10px; }
+.country-arrow { width:20px; flex:0 0 20px; text-align:center; color:#8f7720; font-size:24px; line-height:1; display:flex; align-items:center; justify-content:center; }
+.page { display:none; }
+.page.active { display:block; }
+.details-top { display:flex; align-items:center; gap:14px; margin-bottom:22px; }
+.back-btn { width:46px; height:46px; border-radius:16px; border:1px solid rgba(201,152,20,.14); background:#fff9dc; font-size:22px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1; }
+.details-country { display:flex; align-items:center; gap:12px; font-size:15px; font-weight:700; }
+.details-country .flag { font-size:26px; }
+.pkg-list { display:flex; flex-direction:column; gap:12px; }
+.pkg-row { display:flex; justify-content:space-between; align-items:center; background:var(--soft2); border:1px solid rgba(201,152,20,.2); border-radius:18px; padding:14px 16px; font-weight:700; font-size:15px; cursor:pointer; }
+.pkg-row.selected { background:var(--soft); border:2px solid var(--yellow); }
+.confirm-line { font-size:13px; color:var(--muted); margin-bottom:16px; }
+.terms { margin-top:14px; padding-top:16px; border-top:1px solid rgba(201,152,20,.14); font-size:14px; color:#6e5300; line-height:1.5; }
+.terms label { display:flex; gap:10px; align-items:flex-start; }
+.terms input[type="checkbox"] { width:16px; height:16px; margin-top:2px; accent-color:var(--yellow); }
+.terms a { color:var(--text); font-weight:700; text-decoration:underline; cursor:pointer; }
+.buy-btn, .primary-btn { margin-top:18px; width:100%; height:54px; border:none; border-radius:20px; background:#f3e58e; color:#7f7f7f; font-weight:700; font-size:16px; }
+.buy-btn.enabled, .primary-btn.enabled, .primary-btn:not(:disabled) { background:var(--yellow); color:var(--text); cursor:pointer; }
+.pay-option { display:flex; justify-content:space-between; align-items:center; padding:14px 16px; border:1px solid rgba(201,152,20,.18); border-radius:18px; background:#fff; margin-bottom:12px; cursor:pointer; }
+.pay-option.selected { background:var(--soft2); border:2px solid var(--yellow); }
+.pay-option-title { font-size:15px; font-weight:700; color:var(--text); }
+.pay-option-sub { font-size:13px; color:var(--muted); margin-top:4px; }
+.pay-radio { width:20px; height:20px; border-radius:50%; border:2px solid #bca34a; background:#fff; }
+.pay-option.selected .pay-radio { background:var(--yellow); box-shadow: inset 0 0 0 4px #fff; }
+.pin-wrap { display:none; margin-top:14px; }
+.pin-wrap.active { display:block; }
+.pin-label { font-size:14px; color:var(--muted); margin-bottom:10px; }
+.pin-row { display:flex; gap:10px; }
+.pin-box { flex:1; height:50px; border-radius:14px; border:1px solid rgba(201,152,20,.18); background:#fff9dc; display:flex; align-items:center; justify-content:center; font-size:24px; color:#7a6514; font-weight:700; }
+.summary-grid { display:grid; grid-template-columns:1fr auto; gap:12px 16px; align-items:center; font-size:14px; }
+.summary-grid .k { color:var(--muted); }
+.summary-grid .v { color:var(--text); font-weight:700; }
+.qr-wrap { display:flex; justify-content:center; align-items:center; margin:18px 0; min-height:220px; }
+#qrReal { background:#fff; padding:14px; border-radius:18px; border:1px dashed rgba(201,152,20,.35); }
+.code-box { background:#fff9dc; border:1px solid rgba(201,152,20,.18); border-radius:18px; padding:14px 16px; margin-top:14px; word-break:break-all; font-size:12px; color:#6e5300; }
+.install-step { background:#fff9dc; border:1px solid rgba(201,152,20,.18); border-radius:18px; padding:14px 16px; margin-bottom:12px; }
+.install-step-title { font-size:15px; font-weight:700; margin-bottom:4px; }
+.install-step-copy { font-size:13px; color:var(--muted); line-height:1.5; }
+.esim-head { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px; }
+.esim-name { font-size:15px; font-weight:700; }
+.badge { height:26px; padding:0 10px; border-radius:999px; background:#fff9dc; border:1px solid rgba(201,152,20,.16); display:flex; align-items:center; font-size:12px; color:#7a6514; font-weight:700; }
+.esim-meta { display:grid; grid-template-columns:1fr auto; gap:10px 14px; font-size:13px; margin-top:10px; }
+.esim-meta .k { color:var(--muted); }
+.esim-meta .v { color:var(--text); font-weight:700; }
+.action-row { display:flex; gap:12px; margin-top:16px; }
+.action-btn { flex:1; height:44px; border:none; border-radius:16px; background:var(--yellow); color:var(--text); font-weight:700; font-size:14px; cursor:pointer; }
+.popup-overlay { position:fixed; inset:0; background:rgba(0,0,0,.35); display:none; align-items:center; justify-content:center; z-index:9999; }
+.popup-overlay.open { display:flex; }
+.popup-card { width:min(92vw,420px); max-height:78vh; overflow:auto; background:#fff; border-radius:18px; padding:18px; box-shadow:0 20px 50px rgba(0,0,0,.18); }
+.popup-title { font-size:18px; font-weight:700; margin-bottom:10px; }
+.popup-copy { font-size:13px; color:#6e5300; line-height:1.6; }
+.popup-copy ul { padding-left:18px; }
+
+/* Somtel-style card polish, not dark */
+.icon-pill {
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:#fff9dc;
+  border:1px solid rgba(201,152,20,.16);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  flex:0 0 42px;
+}
+.country-left .icon-pill {
+  width:46px;
+  height:46px;
+  font-size:24px;
+  border-radius:16px;
+}
+.pkg-row {
+  min-height:62px;
+  gap:12px;
+}
+.pkg-main {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.pkg-text {
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.pkg-title {
+  font-size:15px;
+  font-weight:800;
+  color:var(--text);
+}
+.pkg-sub {
+  font-size:12px;
+  font-weight:600;
+  color:var(--muted);
+}
+.pkg-price {
+  font-size:16px;
+  font-weight:800;
+  color:var(--text);
+}
+.pay-option {
+  min-height:72px;
+}
+.pay-method-left {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.esim-head .icon-pill,
+.pay-method-left .icon-pill {
+  background:#fff4c2;
+}
+.qr-wrap {
+  background:#fff9dc;
+  border:1px solid rgba(201,152,20,.14);
+  border-radius:24px;
+}
+.install-step {
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
+.install-step .icon-pill {
+  width:36px;
+  height:36px;
+  font-size:16px;
+  border-radius:12px;
+}
+.topnav {
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:var(--bg);
+  padding:0 0 8px;
+}
+.topnav button {
+  box-shadow:0 4px 12px rgba(145,103,0,.06);
+}
+
+
+/* Clean Somtel package/payment polish */
+.icon-pill {
+  width:auto !important;
+  height:auto !important;
+  border:none !important;
+  background:transparent !important;
+  border-radius:0 !important;
+  font-size:22px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  flex:0 0 auto !important;
+}
+.country-left .icon-pill {
+  width:auto !important;
+  height:auto !important;
+  font-size:28px !important;
+}
+.pkg-row {
+  align-items:flex-start !important;
+  padding:16px !important;
+}
+.pkg-main {
+  flex:1;
+  align-items:flex-start !important;
+}
+.pkg-text {
+  width:100%;
+}
+.pkg-title {
+  font-size:16px !important;
+  margin-bottom:10px;
+}
+.pkg-info-row {
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+}
+.pkg-info {
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.pkg-mini-icon {
+  color:#00a859;
+  font-size:16px;
+  line-height:1;
+}
+.pkg-info-copy {
+  display:flex;
+  flex-direction:column;
+  gap:1px;
+}
+.pkg-info-label {
+  font-size:11px;
+  color:var(--muted);
+  font-weight:600;
+}
+.pkg-info-value {
+  font-size:13px;
+  color:var(--text);
+  font-weight:800;
+}
+.pay-method-left .icon-pill {
+  font-size:22px !important;
+}
+.pay-option-title {
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.loading-overlay {
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.88);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:10000;
+}
+.loading-overlay.open {
+  display:flex;
+}
+.loading-card {
+  width:min(86vw,320px);
+  background:#fff;
+  border-radius:24px;
+  border:1px solid rgba(201,152,20,.16);
+  box-shadow:0 16px 40px rgba(145,103,0,.16);
+  padding:28px 22px;
+  text-align:center;
+}
+.spinner {
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  border:5px solid #fff3b8;
+  border-top-color:#ffd700;
+  margin:0 auto 16px;
+  animation:spin .9s linear infinite;
+}
+@keyframes spin {
+  to { transform:rotate(360deg); }
+}
+.success-check {
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#00a859;
+  color:#fff;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 16px;
+  font-size:32px;
+  animation:pop .32s ease-out;
+}
+.loading-card.success .spinner {
+  display:none;
+}
+.loading-card.success .success-check {
+  display:flex;
+}
+@keyframes pop {
+  0% { transform:scale(.6); opacity:.3; }
+  100% { transform:scale(1); opacity:1; }
+}
+.loading-title {
+  font-size:17px;
+  font-weight:800;
+  color:var(--text);
+  margin-bottom:6px;
+}
+.loading-sub {
+  font-size:13px;
+  color:var(--muted);
+}
+
+
+/* Somtel exact package spacing cleanup */
+.pkg-row {
+  display:flex !important;
+  justify-content:space-between !important;
+  align-items:center !important;
+  min-height:78px !important;
+  padding:16px 18px !important;
+  border-radius:18px !important;
+  background:#fff9dc !important;
+  border:1px solid rgba(201,152,20,.18) !important;
+  gap:14px !important;
+  font-weight:500 !important;
+}
+.pkg-row.selected {
+  border:2px solid #ffd700 !important;
+  background:#fff4bd !important;
+}
+.pkg-main {
+  flex:1 !important;
+  display:block !important;
+}
+.pkg-text {
+  display:flex !important;
+  flex-direction:column !important;
+  gap:7px !important;
+}
+.pkg-title {
+  font-size:15px !important;
+  font-weight:600 !important;
+  color:#2a1f00 !important;
+  margin:0 !important;
+  line-height:1.2 !important;
+}
+.pkg-info-row {
+  display:flex !important;
+  align-items:center !important;
+  gap:6px !important;
+  flex-wrap:wrap !important;
+}
+.pkg-info {
+  display:inline !important;
+}
+.pkg-info:not(:last-child)::after {
+  content:"•";
+  margin-left:6px;
+  color:#8f7720;
+}
+.pkg-mini-icon {
+  display:none !important;
+}
+.pkg-info-copy {
+  display:inline !important;
+}
+.pkg-info-label {
+  display:inline !important;
+  font-size:13px !important;
+  color:#8f7720 !important;
+  font-weight:500 !important;
+}
+.pkg-info-label::after {
+  content:": ";
+}
+.pkg-info-value {
+  display:inline !important;
+  font-size:13px !important;
+  color:#5f4a00 !important;
+  font-weight:600 !important;
+}
+.pkg-price {
+  min-width:66px !important;
+  text-align:center !important;
+  align-self:center !important;
+  font-size:16px !important;
+  font-weight:600 !important;
+  color:#2a1f00 !important;
+  line-height:1 !important;
+}
+.pkg-card {
+  padding:18px !important;
+}
+.details-top {
+  margin-bottom:18px !important;
+}
+.details-country,
+.details-country span:last-child {
+  font-size:16px !important;
+  font-weight:600 !important;
+}
+.back-btn {
+  width:46px !important;
+  height:46px !important;
+}
+
+
+/* Region countries grouping */
+.group-title {
+  font-size:14px;
+  font-weight:700;
+  color:var(--muted);
+  margin:18px 4px 10px;
+}
+.count-pill {
+  height:26px;
+  padding:0 10px;
+  border-radius:999px;
+  background:#fff9dc;
+  border:1px solid rgba(201,152,20,.18);
+  color:#8f7720;
+  font-size:12px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  white-space:nowrap;
+}
+.region-subline {
+  font-size:13px;
+  color:var(--muted);
+  margin-top:10px;
+}
+
+
+/* Region coverage inside package selection */
+.coverage-box {
+  margin-top:16px;
+  padding-top:14px;
+  border-top:1px solid rgba(201,152,20,.14);
+}
+.coverage-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+}
+.coverage-title {
+  font-size:14px;
+  font-weight:700;
+  color:var(--text);
+}
+.coverage-count {
+  font-size:12px;
+  font-weight:700;
+  color:#8f7720;
+  background:#fff9dc;
+  border:1px solid rgba(201,152,20,.18);
+  border-radius:999px;
+  padding:5px 10px;
+  white-space:nowrap;
+}
+.coverage-list {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  max-height:124px;
+  overflow:auto;
+  padding-right:2px;
+}
+.coverage-chip {
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-size:12px;
+  color:#5f4a00;
+  background:#fff9dc;
+  border:1px solid rgba(201,152,20,.16);
+  border-radius:999px;
+  padding:6px 9px;
+}
+.coverage-more {
+  margin-top:8px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+
+.country-card, .country-arrow, .count-pill {
+  cursor:pointer;
+}
+.country-arrow, .count-pill {
+  pointer-events:none;
+}
+
+
+.coverage-group {
+  margin-top:12px;
+}
+.coverage-group-title {
+  font-size:12px;
+  font-weight:700;
+  color:#8f7720;
+  margin:0 0 8px;
+}
+.coverage-group-list {
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+.coverage-toggle {
+  margin-top:10px;
+  border:none;
+  background:#fff9dc;
+  border:1px solid rgba(201,152,20,.18);
+  color:#8f7720;
+  font-weight:700;
+  font-size:12px;
+  border-radius:999px;
+  padding:8px 12px;
+  cursor:pointer;
+}
+.coverage-list.collapsed .coverage-extra {
+  display:none;
+}
+
+
+/* Premium covered countries drawer */
+.coverage-entry {
+  margin-top:16px;
+  padding:14px 16px;
+  border-radius:18px;
+  background:#fff9dc;
+  border:1px solid rgba(201,152,20,.18);
+  display:none;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  cursor:pointer;
+}
+.coverage-entry-left {
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.coverage-entry-title {
+  font-size:14px;
+  font-weight:700;
+  color:#2a1f00;
+}
+.coverage-entry-sub {
+  font-size:12px;
+  color:#8f7720;
+}
+.coverage-entry-arrow {
+  font-size:24px;
+  color:#8f7720;
+  line-height:1;
+}
+.drawer-overlay {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  z-index:10000;
+  display:none;
+  align-items:flex-end;
+}
+.drawer-overlay.open {
+  display:flex;
+}
+.drawer {
+  width:100%;
+  max-height:78vh;
+  background:#fff;
+  border-radius:28px 28px 0 0;
+  padding:12px 20px 24px;
+  overflow:auto;
+  box-shadow:0 -16px 40px rgba(0,0,0,.14);
+}
+.drawer-handle {
+  width:48px;
+  height:5px;
+  border-radius:999px;
+  background:#e6d8a0;
+  margin:0 auto 16px;
+}
+.drawer-head {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
+}
+.drawer-title {
+  font-size:18px;
+  font-weight:800;
+  color:#2a1f00;
+}
+.drawer-sub {
+  font-size:13px;
+  color:#8f7720;
+  margin-top:4px;
+}
+.drawer-close {
+  width:36px;
+  height:36px;
+  border-radius:12px;
+  border:1px solid rgba(201,152,20,.18);
+  background:#fff9dc;
+  color:#2a1f00;
+  font-size:20px;
+  cursor:pointer;
+}
+.drawer-search {
+  width:100%;
+  height:44px;
+  border-radius:16px;
+  border:1px solid rgba(201,152,20,.18);
+  background:#fff;
+  padding:0 14px;
+  font-size:14px;
+  margin:8px 0 14px;
+}
+.drawer-group {
+  margin-top:16px;
+}
+.drawer-group-title {
+  font-size:13px;
+  font-weight:800;
+  color:#8f7720;
+  margin-bottom:8px;
+}
+.drawer-chip-list {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.drawer-chip {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:#fff9dc;
+  border:1px solid rgba(201,152,20,.16);
+  color:#5f4a00;
+  font-size:12px;
+  font-weight:600;
+}
+.drawer-empty {
+  font-size:13px;
+  color:#8f7720;
+  padding:18px 0;
+}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topnav">
+    <button id="navShop" class="active" onclick="showMainPage(&#39;shopPage&#39;)">Shop</button>
+    <button id="navEsims" onclick="showMainPage(&#39;myEsimsPage&#39;)">My eSIMs</button>
+    <button id="navTopup" onclick="showMainPage(&#39;topUpPage&#39;)">Top Up</button>
+  </div>
+
+  <div id="shopPage" class="mainpage active">
+    <div id="listPage" class="page active">
+      <input id="search" class="search" placeholder="Search your destination" oninput="renderList()">
+      <div class="toggle">
+        <button id="btn-country" class="active" onclick="setMode(&#39;country&#39;)">Country</button>
+        <button id="btn-region" onclick="setMode(&#39;region&#39;)">Region</button>
+      </div>
+      <div class="card">
+        <div class="title">Device compatibility</div>
+        <div class="sub" id="deviceResult">⚠️ Device not recognized. Please verify eSIM support</div>
+        <div class="device-btn-row">
+          <button class="device-btn" onclick="detectDevice()">Check compatibility</button>
+          <button class="device-btn" onclick="openSupportedDevices()">Supported devices</button>
+        </div>
+        <div class="warn-note" id="deviceWarnNote">Please confirm device support before payment.</div>
+      </div>
+      <div id="list"><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇦🇮</span><span class="country-name">Anguilla</span></div><span class="country-arrow">›</span></div><div class="from-line">From $10 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇨🇳</span><span class="country-name">China</span></div><span class="country-arrow">›</span></div><div class="from-line">From $4 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇨🇩</span><span class="country-name">Democratic Republic of the Congo</span></div><span class="country-arrow">›</span></div><div class="from-line">From $10 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇪🇹</span><span class="country-name">Ethiopia</span></div><span class="country-arrow">›</span></div><div class="from-line">From $90 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇫🇷</span><span class="country-name">France</span></div><span class="country-arrow">›</span></div><div class="from-line">From $3.5 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇩🇪</span><span class="country-name">Germany</span></div><span class="country-arrow">›</span></div><div class="from-line">From $4 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇮🇳</span><span class="country-name">India</span></div><span class="country-arrow">›</span></div><div class="from-line">From $5 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇮🇩</span><span class="country-name">Indonesia</span></div><span class="country-arrow">›</span></div><div class="from-line">From $3 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇮🇹</span><span class="country-name">Italy</span></div><span class="country-arrow">›</span></div><div class="from-line">From $3.5 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇰🇪</span><span class="country-name">Kenya</span></div><span class="country-arrow">›</span></div><div class="from-line">From $10 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇲🇾</span><span class="country-name">Malaysia</span></div><span class="country-arrow">›</span></div><div class="from-line">From $3.5 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇳🇱</span><span class="country-name">Netherlands</span></div><span class="country-arrow">›</span></div><div class="from-line">From $4 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇦🇳</span><span class="country-name">Netherlands Antilles</span></div><span class="country-arrow">›</span></div><div class="from-line">From $10 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇴🇲</span><span class="country-name">Oman</span></div><span class="country-arrow">›</span></div><div class="from-line">From $7 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇨🇬</span><span class="country-name">Republic of the Congo</span></div><span class="country-arrow">›</span></div><div class="from-line">From $10 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇸🇦</span><span class="country-name">Saudi Arabia</span></div><span class="country-arrow">›</span></div><div class="from-line">From $7 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇿🇦</span><span class="country-name">South Africa</span></div><span class="country-arrow">›</span></div><div class="from-line">From $7 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇸🇪</span><span class="country-name">Sweden</span></div><span class="country-arrow">›</span></div><div class="from-line">From $4.5 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇹🇭</span><span class="country-name">Thailand</span></div><span class="country-arrow">›</span></div><div class="from-line">From $4 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇹🇷</span><span class="country-name">Turkey</span></div><span class="country-arrow">›</span></div><div class="from-line">From $3.5 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇻🇮</span><span class="country-name">U.S. Virgin Islands</span></div><span class="country-arrow">›</span></div><div class="from-line">From $5 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇺🇬</span><span class="country-name">Uganda</span></div><span class="country-arrow">›</span></div><div class="from-line">From $10 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇦🇪</span><span class="country-name">United Arab Emirates</span></div><span class="country-arrow">›</span></div><div class="from-line">From $10 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇬🇧</span><span class="country-name">United Kingdom</span></div><span class="country-arrow">›</span></div><div class="from-line">From $5 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇺🇸</span><span class="country-name">United States</span></div><span class="country-arrow">›</span></div><div class="from-line">From $5 • 7 Days</div></div><div class="country-card"><div class="country-row"><div class="country-left"><span class="icon-pill">🇿🇲</span><span class="country-name">Zambia</span></div><span class="country-arrow">›</span></div><div class="from-line">From $10 • 7 Days</div></div></div>
+    </div>
+
+    <div id="detailsPage" class="page">
+      <div class="details-top">
+        <button class="back-btn" onclick="backToList()">←</button>
+        <div class="details-country"><span class="flag" id="detailsFlag"></span><span id="detailsCountry">Anguilla</span></div>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-list">
+          <div class="pkg-row" id="weeklyPkg" onclick="selectDetailPackage(&#39;1 GB&#39;,&#39;7 Days&#39;)">
+            <div class="pkg-main">
+              <div class="pkg-text">
+                <div class="pkg-title">1 GB • 7 Days</div>
+                <div class="pkg-info-row">
+                  <div class="pkg-info"><span class="pkg-info-label">Data</span><span class="pkg-info-value">1 GB</span></div>
+                  <div class="pkg-info"><span class="pkg-info-label">Validity</span><span class="pkg-info-value">7 Days</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="pkg-price" id="weeklyPrice">$10</div>
+          </div>
+          <div class="pkg-row" id="monthlyPkg" onclick="selectDetailPackage(&#39;10 GB&#39;,&#39;30 Days&#39;)">
+            <div class="pkg-main">
+              <div class="pkg-text">
+                <div class="pkg-title">10 GB • 30 Days</div>
+                <div class="pkg-info-row">
+                  <div class="pkg-info"><span class="pkg-info-label">Data</span><span class="pkg-info-value">10 GB</span></div>
+                  <div class="pkg-info"><span class="pkg-info-label">Validity</span><span class="pkg-info-value">30 Days</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="pkg-price" id="monthlyPrice">$100</div>
+          </div>
+        </div>
+        <div class="coverage-entry" id="coverageEntry" onclick="openCoverageDrawer()" style="display: none;">
+          <div class="coverage-entry-left">
+            <div class="coverage-entry-title">Covered countries</div>
+            <div class="coverage-entry-sub" id="coverageEntrySub">View included destinations</div>
+          </div>
+          <div class="coverage-entry-arrow">›</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="confirm-title">Plan Confirmation</div>
+        <div class="confirm-line" id="summaryText">No package selected</div>
+        <div class="terms">
+          <label><input type="checkbox" id="agreeTerms"><span>I agree to <a href="javascript:void(0)" onclick="openTerms()">Terms &amp; Conditions</a></span></label>
+        </div>
+        <button class="buy-btn" id="buyBtn" disabled="" onclick="goToPayment()">Buy Now</button>
+        <div class="terms-note">By purchasing, you agree to our Terms &amp; Conditions.</div>
+      </div>
+    </div>
+
+
+    <div id="regionCountriesPage" class="page">
+      <div class="details-top">
+        <button class="back-btn" onclick="backToList()">←</button>
+        <div class="details-country"><span class="flag">🌍</span><span id="regionCountriesTitle">Region</span></div>
+      </div>
+      <div class="card">
+        <div class="title">Select destination country</div>
+        <div class="sub" id="regionCountriesSubtitle">Choose a country in this region to continue.</div>
+      </div>
+      <div id="regionCountriesList"></div>
+    </div>
+
+    <div id="paymentPage" class="page">
+      <div class="details-top">
+        <button class="back-btn" onclick="backToDetails()">←</button>
+        <div class="details-country"><span class="flag" id="payFlag">🌐</span><span>Payment</span></div>
+<style>.flag img { border-radius:5px; object-fit:cover; vertical-align:middle; box-shadow:0 1px 4px rgba(0,0,0,.15); }
+.icon-pill img { border-radius:5px; object-fit:cover; vertical-align:middle; box-shadow:0 1px 3px rgba(0,0,0,.12); width:28px; height:21px; }
+.coverage-chip img, .drawer-chip img { width:20px; height:15px; border-radius:3px; object-fit:cover; vertical-align:middle; box-shadow:0 1px 2px rgba(0,0,0,.1); }</style>
+      </div>
+      <div class="pay-card">
+        <div class="confirm-title">Order Summary</div>
+        <div class="summary-grid">
+          <div class="k">Country</div><div class="v" id="payCountry">-</div>
+          <div class="k">Data Plan</div><div class="v" id="payPlan">-</div>
+          <div class="k">Validity</div><div class="v" id="payValidity">-</div>
+          <div class="k">Total</div><div class="v" id="payTotal">-</div>
+        </div>
+      </div>
+      <div class="pay-card">
+        <div class="confirm-title">Payment Method</div>
+        <div class="pay-option" id="payEdahab" onclick="selectPaymentMethod(&#39;edahab&#39;)">
+          <div class="pay-method-left">
+            <div><div class="pay-option-title"><span>📱</span> eDahab</div><div class="pay-option-sub">Pay using your mobile wallet</div></div>
+          </div>
+          <div class="pay-radio"></div>
+        </div>
+        <div class="pay-option" id="payCard" onclick="selectPaymentMethod(&#39;card&#39;)">
+          <div class="pay-method-left">
+            <div><div class="pay-option-title"><span>💳</span> Visa / Mastercard</div><div class="pay-option-sub">Secure card payment</div></div>
+          </div>
+          <div class="pay-radio"></div>
+        </div>
+        <div id="pinWrap" class="pin-wrap">
+          <div class="pin-label">Enter 4-digit eDahab PIN</div>
+          <div class="pin-row"><div class="pin-box">•</div><div class="pin-box">•</div><div class="pin-box">•</div><div class="pin-box">•</div></div>
+        </div>
+        <button class="primary-btn" id="payNowBtn" disabled="" onclick="completePayment()">Pay Now</button>
+      </div>
+    </div>
+
+    <div id="qrPage" class="page">
+      <div class="details-top">
+        <button class="back-btn" onclick="backToPayment()">←</button>
+        <div class="details-country"><span class="flag" id="qrFlag">🌐</span><span>QR &amp; Install</span></div>
+      </div>
+      <div class="pay-card">
+        <div class="confirm-title">Purchase Confirmed</div>
+        <div class="confirm-line" id="qrSummary">-</div>
+        <div class="qr-wrap"><div id="qrReal"></div></div>
+        <div class="code-box" id="activationCodeBox">Activation code will appear here</div>
+        <div class="small-note">This QR is generated from a backend-ready activation string. In production, it should come from your eSIM provider or backend after successful payment.</div>
+      </div>
+      <div class="pay-card">
+        <div class="confirm-title">Installation Steps</div>
+        <div class="install-step"><div class="icon-pill">⚙️</div><div><div class="install-step-title">1. Open settings</div><div class="install-step-copy">Go to Mobile Network or Cellular settings.</div></div></div>
+        <div class="install-step"><div class="icon-pill">📷</div><div><div class="install-step-title">2. Scan QR</div><div class="install-step-copy">Choose Add eSIM or Add Mobile Plan, then scan the QR code.</div></div></div>
+        <div class="install-step"><div class="icon-pill">✅</div><div><div class="install-step-title">3. Activate plan</div><div class="install-step-copy">Set this eSIM as your data line and enable roaming if required.</div></div></div>
+        <div class="install-step"><div class="icon-pill">📶</div><div><div class="install-step-title">4. Start using data</div><div class="install-step-copy">Your package becomes active on the destination network.</div></div></div>
+        <button class="primary-btn enabled" onclick="finishOrder()">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="myEsimsPage" class="mainpage" style="display:none;">
+    <div class="esim-card">
+      <div class="title">My eSIMs</div>
+      <div class="sub">View active plans, check expiry, and reopen QR details when needed.</div>
+    </div>
+    <div id="esimsList"><div class="esim-card"><div class="title">No eSIM yet</div><div class="sub">Your purchased eSIMs will appear here.</div></div></div>
+  </div>
+
+  <div id="topUpPage" class="mainpage" style="display:none;">
+    <div class="esim-card">
+      <div class="title">Top Up</div>
+      <div class="sub">Choose an active eSIM and buy another bundle.</div>
+    </div>
+    <div id="topUpList"><div class="esim-card"><div class="title">No active eSIM</div><div class="sub">Buy an eSIM first, then Top Up will appear here.</div></div></div>
+  </div>
+</div>
+
+<div class="popup-overlay" id="supportedDevicesPopup"><div class="popup-card"><div class="popup-title">Supported devices</div><div class="popup-copy"><ul><li>iPhone XS, XR, and newer iPhone models</li><li>Recent iPad models with eSIM support</li><li>Google Pixel devices with eSIM support</li><li>Recent Samsung Galaxy S, Fold, and Flip models with eSIM support</li></ul>Actual support depends on device model, software version, and carrier lock status.</div><div class="device-btn-row"><button class="device-btn" onclick="closeSupportedDevices()">Close</button></div></div></div>
+<div id="termsPage" class="popup-overlay"><div class="popup-card"><div class="popup-title">Terms &amp; Conditions</div><div class="popup-copy"><p>• eSIM and data packages are intended for compatible unlocked devices that support eSIM technology.</p><p>• Data validity starts when the package becomes active on a supported network.</p><p>• Coverage and service quality depend on partner network availability in the selected destination.</p><p>• Packages are data only unless otherwise stated.</p><p>• Activated or consumed packages are generally not refundable unless there is a confirmed technical issue affecting service delivery.</p><p>• Customers are responsible for confirming device compatibility before purchase.</p></div><div class="device-btn-row"><button class="device-btn" onclick="closeTerms()">Close</button></div></div></div>
+
+
+<div class="loading-overlay" id="paymentLoading">
+  <div class="loading-card" id="loadingCard">
+    <div class="spinner"></div>
+    <div class="success-check">✓</div>
+    <div class="loading-title" id="loadingTitle">Processing payment</div>
+    <div class="loading-sub" id="loadingSub">Please wait while we confirm your payment.</div>
+  </div>
+</div>
+
+
+<div class="drawer-overlay" id="coverageDrawerOverlay" onclick="closeCoverageDrawer(event)">
+  <div class="drawer" onclick="event.stopPropagation()">
+    <div class="drawer-handle"></div>
+    <div class="drawer-head">
+      <div>
+        <div class="drawer-title" id="drawerTitle">Covered countries</div>
+        <div class="drawer-sub" id="drawerSub">Countries included in this regional package</div>
+      </div>
+      <button class="drawer-close" onclick="closeCoverageDrawer()">×</button>
+    </div>
+    <input class="drawer-search" id="coverageSearch" placeholder="Search country" oninput="renderCoverageDrawer()">
+    <div id="coverageDrawerList"></div>
+  </div>
+</div>
+
+<script>
+const countries = [{"country": "Anguilla", "region": "Americas", "weekly1gb": 10.0, "monthly10gb": 100.0}, {"country": "China", "region": "Asia", "weekly1gb": 4.0, "monthly10gb": 40.0}, {"country": "Democratic Republic of the Congo", "region": "Africa", "weekly1gb": 10.0, "monthly10gb": 100.0}, {"country": "Ethiopia", "region": "Africa", "weekly1gb": 90.0, "monthly10gb": 900.0}, {"country": "France", "region": "Europe", "weekly1gb": 3.5, "monthly10gb": 35.0}, {"country": "Germany", "region": "Europe", "weekly1gb": 4.0, "monthly10gb": 40.0}, {"country": "India", "region": "Asia", "weekly1gb": 5.0, "monthly10gb": 50.0}, {"country": "Indonesia", "region": "Asia", "weekly1gb": 3.0, "monthly10gb": 30.0}, {"country": "Italy", "region": "Europe", "weekly1gb": 3.5, "monthly10gb": 35.0}, {"country": "Kenya", "region": "Africa", "weekly1gb": 10.0, "monthly10gb": 100.0}, {"country": "Malaysia", "region": "Asia", "weekly1gb": 3.5, "monthly10gb": 35.0}, {"country": "Netherlands", "region": "Europe", "weekly1gb": 4.0, "monthly10gb": 40.0}, {"country": "Netherlands Antilles", "region": "Other", "weekly1gb": 10.0, "monthly10gb": 100.0}, {"country": "Oman", "region": "Middle East", "weekly1gb": 7.0, "monthly10gb": 70.0}, {"country": "Republic of the Congo", "region": "Africa", "weekly1gb": 10.0, "monthly10gb": 100.0}, {"country": "Saudi Arabia", "region": "Middle East", "weekly1gb": 7.0, "monthly10gb": 70.0}, {"country": "South Africa", "region": "Africa", "weekly1gb": 7.0, "monthly10gb": 70.0}, {"country": "Sweden", "region": "Europe", "weekly1gb": 4.5, "monthly10gb": 45.0}, {"country": "Thailand", "region": "Asia", "weekly1gb": 4.0, "monthly10gb": 40.0}, {"country": "Turkey", "region": "Middle East", "weekly1gb": 3.5, "monthly10gb": 35.0}, {"country": "U.S. Virgin Islands", "region": "Americas", "weekly1gb": 5.0, "monthly10gb": 50.0}, {"country": "Uganda", "region": "Africa", "weekly1gb": 10.0, "monthly10gb": 100.0}, {"country": "United Arab Emirates", "region": "Middle East", "weekly1gb": 10.0, "monthly10gb": 100.0}, {"country": "United Kingdom", "region": "Europe", "weekly1gb": 5.0, "monthly10gb": 50.0}, {"country": "United States", "region": "Americas", "weekly1gb": 5.0, "monthly10gb": 50.0}, {"country": "Zambia", "region": "Africa", "weekly1gb": 10.0, "monthly10gb": 100.0}];
+const regions = [{"region": "Africa", "weekly1gb": 7.0, "monthly10gb": 70.0, "countries": ["Democratic Republic of the Congo", "Ethiopia", "Kenya", "Republic of the Congo", "South Africa", "Uganda", "Zambia"]}, {"region": "Americas", "weekly1gb": 5.0, "monthly10gb": 50.0, "countries": ["Anguilla", "U.S. Virgin Islands", "United States"]}, {"region": "Asia", "weekly1gb": 3.0, "monthly10gb": 30.0, "countries": ["China", "India", "Indonesia", "Malaysia", "Thailand"]}, {"region": "Europe", "weekly1gb": 3.5, "monthly10gb": 35.0, "countries": ["France", "Germany", "Italy", "Netherlands", "Sweden", "United Kingdom"]}, {"region": "Middle East", "weekly1gb": 3.5, "monthly10gb": 35.0, "countries": ["Oman", "Saudi Arabia", "Turkey", "United Arab Emirates"]}, {"region": "Other", "weekly1gb": 10.0, "monthly10gb": 100.0, "countries": ["Netherlands Antilles"]}];
+const codeMap = {"Afghanistan": "af", "Albania": "al", "Algeria": "dz", "Andorra": "ad", "Anguilla": "ai", "Antigua and Barbuda": "ag", "Argentina": "ar", "Armenia": "am", "Aruba": "aw", "Australia": "au", "Austria": "at", "Azerbaijan": "az", "Bahamas": "bs", "Bahrain": "bh", "Bangladesh": "bd", "Barbados": "bb", "Belarus": "by", "Belgium": "be", "Belize": "bz", "Benin": "bj", "Bermuda": "bm", "Bhutan": "bt", "Bolivia": "bo", "Bosnia and Herzegovina": "ba", "Botswana": "bw", "Brazil": "br", "British Virgin Islands": "vg", "Brunei": "bn", "Bulgaria": "bg", "Burkina Faso": "bf", "Cambodia": "kh", "Cameroon": "cm", "Canada": "ca", "Cape Verde": "cv", "Cayman Islands": "ky", "Chad": "td", "Chile": "cl", "China": "cn", "Colombia": "co", "Costa Rica": "cr", "Croatia": "hr", "Curacao": "cw", "Cyprus": "cy", "Czech Republic": "cz", "Democratic Republic of the Congo": "cd", "Denmark": "dk", "Dominica": "dm", "Dominican Republic": "do", "Ecuador": "ec", "Egypt": "eg", "El Salvador": "sv", "Estonia": "ee", "Eswatini": "sz", "Ethiopia": "et", "Faroe Islands": "fo", "Fiji": "fj", "Finland": "fi", "France": "fr", "French Guiana": "gf", "Gabon": "ga", "Gambia": "gm", "Georgia": "ge", "Germany": "de", "Ghana": "gh", "Gibraltar": "gi", "Greece": "gr", "Greenland": "gl", "Grenada": "gd", "Guadeloupe": "gp", "Guam": "gu", "Guatemala": "gt", "Guernsey": "gg", "Guinea": "gn", "Guinea-Bissau": "gw", "Guyana": "gy", "Haiti": "ht", "Honduras": "hn", "Hong Kong": "hk", "Hungary": "hu", "Iceland": "is", "India": "in", "Indonesia": "id", "Iran": "ir", "Iraq": "iq", "Ireland": "ie", "Isle of Man": "im", "Israel": "il", "Italy": "it", "Ivory Coast": "ci", "Jamaica": "jm", "Japan": "jp", "Jersey": "je", "Jordan": "jo", "Kazakhstan": "kz", "Kenya": "ke", "Kiribati": "ki", "Kosovo": "xk", "Kuwait": "kw", "Kyrgyzstan": "kg", "Laos": "la", "Latvia": "lv", "Lesotho": "ls", "Liberia": "lr", "Liechtenstein": "li", "Lithuania": "lt", "Luxembourg": "lu", "Macau": "mo", "Macedonia": "mk", "Madagascar": "mg", "Malawi": "mw", "Malaysia": "my", "Maldives": "mv", "Mali": "ml", "Malta": "mt", "Martinique": "mq", "Mauritania": "mr", "Mauritius": "mu", "Mayotte": "yt", "Mexico": "mx", "Moldova": "md", "Monaco": "mc", "Mongolia": "mn", "Montenegro": "me", "Montserrat": "ms", "Morocco": "ma", "Mozambique": "mz", "Myanmar": "mm", "Nauru": "nr", "Nepal": "np", "Netherlands": "nl", "Netherlands Antilles": "an", "New Zealand": "nz", "Nicaragua": "ni", "Niger": "ne", "Nigeria": "ng", "Northern Mariana Islands": "mp", "Norway": "no", "Oman": "om", "Pakistan": "pk", "Palau": "pw", "Palestine": "ps", "Panama": "pa", "Papua New Guinea": "pg", "Paraguay": "py", "Peru": "pe", "Philippines": "ph", "Poland": "pl", "Portugal": "pt", "Puerto Rico": "pr", "Qatar": "qa", "Republic of the Congo": "cg", "Reunion": "re", "Romania": "ro", "Russia (offline)": "ru", "Rwanda": "rw", "Saint Barthelemy": "bl", "Saint Kitts and Nevis": "kn", "Saint Lucia": "lc", "Saint Martin": "mf", "Saint Vincent and the Grenadines": "vc", "Samoa": "ws", "San Marino": "sm", "Saudi Arabia": "sa", "Senegal": "sn", "Serbia": "rs", "Seychelles": "sc", "Sierra Leone": "sl", "Singapore": "sg", "Slovakia": "sk", "Slovenia": "si", "South Africa": "za", "South Korea": "kr", "Spain": "es", "Sri Lanka": "lk", "Sudan": "sd", "Suriname": "sr", "Swaziland": "sz", "Sweden": "se", "Switzerland": "ch", "Taiwan": "tw", "Tajikistan": "tj", "Tanzania": "tz", "Thailand": "th", "Timor-Leste": "tl", "Togo": "tg", "Tonga": "to", "Trinidad and Tobago": "tt", "Tunisia": "tn", "Turkey": "tr", "Turks and Caicos Islands": "tc", "U.S. Virgin Islands": "vi", "Uganda": "ug", "Ukraine": "ua", "United Arab Emirates": "ae", "UAE": "ae", "United Kingdom": "gb", "United States": "us", "Uruguay": "uy", "Uzbekistan": "uz", "Vanuatu": "vu", "Vatican City": "va", "Venezuela": "ve", "Vietnam": "vn", "Zambia": "zm", "Zimbabwe": "zw"};
+let mode = 'country';
+let selectedCountry = null;
+let selectedPackage = '';
+let selectedValidity = '';
+let selectedPrice = '';
+let selectedPaymentMethod = '';
+let myEsims = [];
+
+function fmt(v) {
+  const n = Number(v);
+  return (v === null || v === undefined || Number.isNaN(n)) ? '-' : ('$' + (Number.isInteger(n) ? n.toFixed(0) : n.toFixed(1)));
+}
+function countryToCode(country) { return codeMap[country] || ""; }
+function countryFlag(country) {
+  const code = countryToCode(country);
+  if (!code) return '<img src="https://flagcdn.com/w40/un.png" width="28" height="21" style="border-radius:4px;object-fit:cover;" alt="🌐">';
+  return '<img src="https://flagcdn.com/w40/' + code.toLowerCase() + '.png" width="28" height="21" style="border-radius:4px;object-fit:cover;vertical-align:middle;" alt="' + country + ' flag">';
+}
+function countryFlagForEsim(country) {
+  const code = countryToCode(country);
+  if (!code) return '<img src="https://flagcdn.com/w40/un.png" width="28" height="21" style="border-radius:4px;object-fit:cover;" alt="flag">';
+  return '<img src="https://flagcdn.com/w40/' + code.toLowerCase() + '.png" width="28" height="21" style="border-radius:4px;object-fit:cover;vertical-align:middle;" alt="' + country + ' flag">';
+}
+function showMainPage(id) {
+  document.getElementById('shopPage').style.display = id === 'shopPage' ? '' : 'none';
+  document.getElementById('myEsimsPage').style.display = id === 'myEsimsPage' ? '' : 'none';
+  document.getElementById('topUpPage').style.display = id === 'topUpPage' ? '' : 'none';
+  document.getElementById('navShop').classList.toggle('active', id === 'shopPage');
+  document.getElementById('navEsims').classList.toggle('active', id === 'myEsimsPage');
+  document.getElementById('navTopup').classList.toggle('active', id === 'topUpPage');
+  if (id === 'myEsimsPage') renderMyEsims();
+  if (id === 'topUpPage') renderTopUp();
+}
+function setMode(nextMode) {
+  mode = nextMode;
+  document.getElementById('btn-country').classList.toggle('active', mode === 'country');
+  document.getElementById('btn-region').classList.toggle('active', mode === 'region');
+  document.getElementById('search').placeholder = mode === 'country' ? 'Search your destination' : 'Search your region';
+  renderList();
+}
+function openSupportedDevices() { document.getElementById('supportedDevicesPopup').classList.add('open'); }
+function closeSupportedDevices() { document.getElementById('supportedDevicesPopup').classList.remove('open'); }
+function openTerms() { document.getElementById('termsPage').classList.add('open'); }
+function closeTerms() { document.getElementById('termsPage').classList.remove('open'); }
+function detectDevice() {
+  const ua = navigator.userAgent || "";
+  let result = "⚠️ Device not recognized. Please verify eSIM support";
+  let supported = false;
+  if (/iPhone/i.test(ua)) {
+    const match = ua.match(/OS (\d+)_/i);
+    const iosVersion = match ? parseInt(match[1], 10) : 0;
+    if (iosVersion >= 12) { result = "✅ Your iPhone likely supports eSIM"; supported = true; }
+    else { result = "⚠️ Your iPhone may not support eSIM"; }
+  } else if (/Android/i.test(ua)) {
+    if (/Pixel|Samsung|Galaxy|S20|S21|S22|S23|S24|Fold|Flip/i.test(ua)) { result = "✅ Your Android device likely supports eSIM"; supported = true; }
+    else { result = "⚠️ Please confirm your Android device supports eSIM"; }
+  } else if (/iPad/i.test(ua)) {
+    result = "✅ Your iPad may support eSIM depending on model";
+    supported = true;
+  }
+  window.deviceSupported = supported;
+  document.getElementById('deviceResult').textContent = result;
+  document.getElementById('deviceWarnNote').textContent = supported ? 'You can continue to package selection.' : 'Please confirm device support before payment.';
+}
+
+function getRegionCountries(regionName) {
+  const regionObj = regions.find(r => r.region === regionName);
+  if (regionObj && Array.isArray(regionObj.countries)) {
+    return regionObj.countries
+      .map(name => countries.find(c => c.country === name))
+      .filter(Boolean);
+  }
+  return countries.filter(c => c.region === regionName);
+}
+
+function getAfricaSubGroup(country) {
+  const east = ['Kenya','Ethiopia','Uganda','Tanzania','Rwanda','Madagascar','Malawi','Mauritius','Seychelles','Reunion','Mayotte','Mozambique'];
+  const west = ['Ghana','Nigeria','Senegal','Ivory Coast','Benin','Burkina Faso','Cape Verde','Gambia','Guinea','Guinea-Bissau','Liberia','Mali','Mauritania','Niger','Sierra Leone','Togo'];
+  const north = ['Algeria','Egypt','Libya','Morocco','Sudan','Tunisia'];
+  const south = ['South Africa','Botswana','Lesotho','Eswatini','Swaziland','Zambia','Zimbabwe'];
+  const central = ['Cameroon','Gabon','Chad','Republic of the Congo','Democratic Republic of the Congo'];
+  if (east.includes(country)) return 'East Africa';
+  if (west.includes(country)) return 'West Africa';
+  if (north.includes(country)) return 'North Africa';
+  if (south.includes(country)) return 'Southern Africa';
+  if (central.includes(country)) return 'Central Africa';
+  return 'Other Africa';
+}
+
+function getCountryGroup(regionName, countryName) {
+  if (regionName === 'Africa') return getAfricaSubGroup(countryName);
+  if (regionName === 'Europe') {
+    const western = ['United Kingdom','France','Germany','Netherlands','Belgium','Switzerland','Austria','Ireland','Luxembourg','Monaco','Liechtenstein'];
+    const southern = ['Italy','Spain','Portugal','Greece','Malta','San Marino','Vatican City','Andorra','Cyprus'];
+    const northern = ['Norway','Sweden','Denmark','Finland','Iceland'];
+    const eastern = ['Poland','Romania','Bulgaria','Croatia','Czech Republic','Estonia','Hungary','Latvia','Lithuania','Moldova','Serbia','Slovakia','Slovenia','Ukraine','Belarus','Montenegro','Bosnia and Herzegovina','Macedonia','Russia (offline)'];
+    if (western.includes(countryName)) return 'Western Europe';
+    if (southern.includes(countryName)) return 'Southern Europe';
+    if (northern.includes(countryName)) return 'Northern Europe';
+    if (eastern.includes(countryName)) return 'Eastern Europe';
+  }
+  if (regionName === 'Asia') {
+    const south = ['India','Pakistan','Bangladesh','Nepal','Sri Lanka','Maldives','Bhutan'];
+    const east = ['China','Japan','South Korea','Hong Kong','Macau','Taiwan','Mongolia'];
+    const southeast = ['Malaysia','Thailand','Singapore','Indonesia','Philippines','Vietnam','Cambodia','Laos','Myanmar','Brunei','Timor-Leste'];
+    const central = ['Kazakhstan','Kyrgyzstan','Tajikistan','Uzbekistan'];
+    if (south.includes(countryName)) return 'South Asia';
+    if (east.includes(countryName)) return 'East Asia';
+    if (southeast.includes(countryName)) return 'Southeast Asia';
+    if (central.includes(countryName)) return 'Central Asia';
+  }
+  if (regionName === 'Middle East') return 'Middle East Countries';
+  if (regionName === 'Americas') {
+    const north = ['United States','Canada','Mexico'];
+    const south = ['Brazil','Argentina','Uruguay','Paraguay','Peru','Colombia','Ecuador','Bolivia','Chile','Venezuela'];
+    if (north.includes(countryName)) return 'North America';
+    if (south.includes(countryName)) return 'South America';
+    return 'Caribbean & Central America';
+  }
+  if (regionName === 'Oceania') return 'Oceania Countries';
+  return 'Other Countries';
+}
+
+function openRegionCountries(d) {
+  const regionName = d.region;
+  const list = getRegionCountries(regionName);
+  document.getElementById('regionCountriesTitle').textContent = regionName;
+  document.getElementById('regionCountriesSubtitle').textContent = list.length + ' countries available in this region.';
+  document.getElementById('listPage').classList.remove('active');
+  document.getElementById('detailsPage').classList.remove('active');
+  document.getElementById('paymentPage').classList.remove('active');
+  document.getElementById('qrPage').classList.remove('active');
+  document.getElementById('regionCountriesPage').classList.add('active');
+  renderRegionCountries(regionName, list);
+}
+
+function renderRegionCountries(regionName, list) {
+  const container = document.getElementById('regionCountriesList');
+  container.innerHTML = '';
+  const groups = {};
+  list.forEach(c => {
+    const group = getCountryGroup(regionName, c.country);
+    if (!groups[group]) groups[group] = [];
+    groups[group].push(c);
+  });
+  const groupOrder = regionName === 'Africa'
+    ? ['East Africa','West Africa','North Africa','Southern Africa','Central Africa','Other Africa']
+    : Object.keys(groups).sort();
+  groupOrder.forEach(group => {
+    if (!groups[group] || !groups[group].length) return;
+    const title = document.createElement('div');
+    title.className = 'group-title';
+    title.textContent = group;
+    container.appendChild(title);
+    groups[group].sort((a,b) => a.country.localeCompare(b.country)).forEach(c => {
+      const el = document.createElement('div');
+      el.className = 'country-card';
+      el.onclick = () => openCountryDetails(c);
+      el.innerHTML = `<div class="country-row"><div class="country-left"><span class="icon-pill">${countryFlag(c.country)}</span><span class="country-name">${c.country}</span></div><span class="country-arrow">›</span></div><div class="from-line">From ${fmt(c.weekly1gb)} • 7 Days</div>`;
+      container.appendChild(el);
+    });
+  });
+}
+
+function renderList() {
+  const q = (document.getElementById('search').value || '').toLowerCase().trim();
+  const container = document.getElementById('list');
+  container.innerHTML = '';
+  if (mode === 'country') {
+    countries.filter(d => (d.country || '').toLowerCase().includes(q) || (d.region || '').toLowerCase().includes(q)).forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'country-card';
+      el.onclick = () => openCountryDetails(d);
+      el.innerHTML = `<div class="country-row"><div class="country-left"><span class="icon-pill">${countryFlag(d.country)}</span><span class="country-name">${d.country}</span></div><span class="country-arrow">›</span></div><div class="from-line">From ${fmt(d.weekly1gb)} • 7 Days</div>`;
+      container.appendChild(el);
+    });
+  } else {
+    regions.filter(d => (d.region || '').toLowerCase().includes(q)).forEach(d => {
+      const count = (d.countries || []).length || getRegionCountries(d.region).length;
+      const el = document.createElement('div');
+      el.className = 'country-card';
+      el.onclick = () => openRegionDetails(d);
+      el.innerHTML = `<div class="country-row"><div class="country-left"><span class="icon-pill">🌍</span><span class="country-name">${d.region}</span></div><span class="count-pill">${count} countries</span><span class="country-arrow">›</span></div><div class="region-subline">From ${fmt(d.weekly1gb)} • 7 Days</div>`;
+      container.appendChild(el);
+    });
+  }
+}
+function resetDetails() {
+  selectedPackage = '';
+  selectedValidity = '';
+  selectedPrice = '';
+  selectedPaymentMethod = '';
+  document.getElementById('agreeTerms').checked = false;
+  document.getElementById('buyBtn').disabled = true;
+  document.getElementById('buyBtn').classList.remove('enabled');
+  document.getElementById('summaryText').textContent = 'No package selected';
+  document.getElementById('weeklyPkg').classList.remove('selected');
+  document.getElementById('monthlyPkg').classList.remove('selected');
+}
+function openCountryDetails(d) {
+  selectedCountry = d;
+  resetDetails();
+  document.getElementById('detailsFlag').innerHTML = countryFlag(d.country);
+  document.getElementById('detailsCountry').textContent = d.country;
+  document.getElementById('weeklyPrice').textContent = fmt(d.weekly1gb);
+  document.getElementById('monthlyPrice').textContent = fmt(d.monthly10gb);
+  const coverageBoxCountry = document.getElementById('coverageBox');
+  if (coverageBoxCountry) coverageBoxCountry.style.display = 'none';
+  const coverageEntryCountry = document.getElementById('coverageEntry');
+  if (coverageEntryCountry) coverageEntryCountry.style.display = 'none';
+  const coverageBox = document.getElementById('coverageBox');
+  if (coverageBox) coverageBox.style.display = 'none';
+  document.getElementById('listPage').classList.remove('active');
+  document.getElementById('paymentPage').classList.remove('active');
+  document.getElementById('qrPage').classList.remove('active');
+  document.getElementById('regionCountriesPage')?.classList.remove('active');
+  document.getElementById('detailsPage').classList.add('active');
+}
+
+function getCoverageGroup(regionName, countryName) {
+  if (regionName === 'Africa') {
+    const east = ['Kenya','Ethiopia','Uganda','Tanzania','Rwanda','Madagascar','Malawi','Mauritius','Seychelles','Reunion','Mayotte','Mozambique'];
+    const west = ['Ghana','Nigeria','Senegal','Ivory Coast','Benin','Burkina Faso','Cape Verde','Gambia','Guinea','Guinea-Bissau','Liberia','Mali','Mauritania','Niger','Sierra Leone','Togo'];
+    const north = ['Algeria','Egypt','Libya','Morocco','Sudan','Tunisia'];
+    const south = ['South Africa','Botswana','Lesotho','Eswatini','Swaziland','Zambia','Zimbabwe'];
+    const central = ['Cameroon','Gabon','Chad','Republic of the Congo','Democratic Republic of the Congo'];
+    if (east.includes(countryName)) return 'East Africa';
+    if (west.includes(countryName)) return 'West Africa';
+    if (north.includes(countryName)) return 'North Africa';
+    if (south.includes(countryName)) return 'Southern Africa';
+    if (central.includes(countryName)) return 'Central Africa';
+    return 'Other Africa';
+  }
+
+  if (regionName === 'Europe') {
+    const western = ['United Kingdom','France','Germany','Netherlands','Belgium','Switzerland','Austria','Ireland','Luxembourg','Monaco','Liechtenstein'];
+    const southern = ['Italy','Spain','Portugal','Greece','Malta','San Marino','Vatican City','Andorra','Cyprus'];
+    const northern = ['Norway','Sweden','Denmark','Finland','Iceland'];
+    const eastern = ['Poland','Romania','Bulgaria','Croatia','Czech Republic','Estonia','Hungary','Latvia','Lithuania','Moldova','Serbia','Slovakia','Slovenia','Ukraine','Belarus','Montenegro','Bosnia and Herzegovina','Macedonia','Russia (offline)'];
+    if (western.includes(countryName)) return 'Western Europe';
+    if (southern.includes(countryName)) return 'Southern Europe';
+    if (northern.includes(countryName)) return 'Northern Europe';
+    if (eastern.includes(countryName)) return 'Eastern Europe';
+    return 'Other Europe';
+  }
+
+  if (regionName === 'Asia') {
+    const south = ['India','Pakistan','Bangladesh','Nepal','Sri Lanka','Maldives','Bhutan'];
+    const east = ['China','Japan','South Korea','Hong Kong','Macau','Taiwan','Mongolia'];
+    const southeast = ['Malaysia','Thailand','Singapore','Indonesia','Philippines','Vietnam','Cambodia','Laos','Myanmar','Brunei','Timor-Leste'];
+    const central = ['Kazakhstan','Kyrgyzstan','Tajikistan','Uzbekistan'];
+    if (south.includes(countryName)) return 'South Asia';
+    if (east.includes(countryName)) return 'East Asia';
+    if (southeast.includes(countryName)) return 'Southeast Asia';
+    if (central.includes(countryName)) return 'Central Asia';
+    return 'Other Asia';
+  }
+
+  if (regionName === 'Americas') {
+    const north = ['United States','Canada','Mexico'];
+    const south = ['Brazil','Argentina','Uruguay','Paraguay','Peru','Colombia','Ecuador','Bolivia','Chile','Venezuela'];
+    if (north.includes(countryName)) return 'North America';
+    if (south.includes(countryName)) return 'South America';
+    return 'Caribbean & Central America';
+  }
+
+  if (regionName === 'Middle East') return 'Middle East Countries';
+  if (regionName === 'Oceania') return 'Oceania Countries';
+  return 'Covered Countries';
+}
+
+function renderCoverageGroups(regionName, regionCountries) {
+  const coverageList = document.getElementById('coverageList');
+  const coverageMore = document.getElementById('coverageMore');
+  coverageList.innerHTML = '';
+  coverageList.classList.add('collapsed');
+
+  const groups = {};
+  regionCountries.forEach(c => {
+    const g = getCoverageGroup(regionName, c.country);
+    if (!groups[g]) groups[g] = [];
+    groups[g].push(c);
+  });
+
+  const preferredOrder = regionName === 'Africa'
+    ? ['East Africa','West Africa','North Africa','Southern Africa','Central Africa','Other Africa']
+    : Object.keys(groups).sort();
+
+  let shown = 0;
+  preferredOrder.forEach(groupName => {
+    const items = groups[groupName];
+    if (!items || !items.length) return;
+
+    const group = document.createElement('div');
+    group.className = 'coverage-group';
+    group.innerHTML = `<div class="coverage-group-title">${groupName}</div><div class="coverage-group-list"></div>`;
+    const inner = group.querySelector('.coverage-group-list');
+
+    items.sort((a,b) => a.country.localeCompare(b.country)).forEach((c) => {
+      const chip = document.createElement('span');
+      chip.className = 'coverage-chip';
+      if (shown >= 18) chip.classList.add('coverage-extra');
+      chip.innerHTML = countryFlag(c.country) + ' ' + c.country;
+      inner.appendChild(chip);
+      shown++;
+    });
+
+    coverageList.appendChild(group);
+  });
+
+  if (regionCountries.length > 18) {
+    coverageMore.innerHTML = `<button class="coverage-toggle" onclick="toggleCoverage()">Show all ${regionCountries.length} countries</button>`;
+  } else {
+    coverageMore.innerHTML = '';
+  }
+}
+
+function toggleCoverage() {
+  const coverageList = document.getElementById('coverageList');
+  const btn = document.querySelector('.coverage-toggle');
+  const collapsed = coverageList.classList.toggle('collapsed');
+  if (btn) btn.textContent = collapsed ? 'Show all countries' : 'Show less';
+}
+
+
+let currentCoverageRegion = '';
+let currentCoverageCountries = [];
+
+function getRegionCountries(regionName) {
+  const regionObj = regions.find(r => r.region === regionName);
+  if (regionObj && Array.isArray(regionObj.countries)) {
+    return regionObj.countries
+      .map(name => countries.find(c => c.country === name))
+      .filter(Boolean);
+  }
+  return countries.filter(c => c.region === regionName);
+}
+
+function getCoverageGroup(regionName, countryName) {
+  if (regionName === 'Africa') {
+    const east = ['Kenya','Ethiopia','Uganda','Tanzania','Rwanda','Madagascar','Malawi','Mauritius','Seychelles','Reunion','Mayotte','Mozambique'];
+    const west = ['Ghana','Nigeria','Senegal','Ivory Coast','Benin','Burkina Faso','Cape Verde','Gambia','Guinea','Guinea-Bissau','Liberia','Mali','Mauritania','Niger','Sierra Leone','Togo'];
+    const north = ['Algeria','Egypt','Libya','Morocco','Sudan','Tunisia'];
+    const south = ['South Africa','Botswana','Lesotho','Eswatini','Swaziland','Zambia','Zimbabwe'];
+    const central = ['Cameroon','Gabon','Chad','Republic of the Congo','Democratic Republic of the Congo'];
+    if (east.includes(countryName)) return 'East Africa';
+    if (west.includes(countryName)) return 'West Africa';
+    if (north.includes(countryName)) return 'North Africa';
+    if (south.includes(countryName)) return 'Southern Africa';
+    if (central.includes(countryName)) return 'Central Africa';
+    return 'Other Africa';
+  }
+  if (regionName === 'Europe') {
+    const western = ['United Kingdom','France','Germany','Netherlands','Belgium','Switzerland','Austria','Ireland','Luxembourg','Monaco','Liechtenstein'];
+    const southern = ['Italy','Spain','Portugal','Greece','Malta','San Marino','Vatican City','Andorra','Cyprus'];
+    const northern = ['Norway','Sweden','Denmark','Finland','Iceland'];
+    const eastern = ['Poland','Romania','Bulgaria','Croatia','Czech Republic','Estonia','Hungary','Latvia','Lithuania','Moldova','Serbia','Slovakia','Slovenia','Ukraine','Belarus','Montenegro','Bosnia and Herzegovina','Macedonia','Russia (offline)'];
+    if (western.includes(countryName)) return 'Western Europe';
+    if (southern.includes(countryName)) return 'Southern Europe';
+    if (northern.includes(countryName)) return 'Northern Europe';
+    if (eastern.includes(countryName)) return 'Eastern Europe';
+    return 'Other Europe';
+  }
+  if (regionName === 'Asia') {
+    const south = ['India','Pakistan','Bangladesh','Nepal','Sri Lanka','Maldives','Bhutan'];
+    const east = ['China','Japan','South Korea','Hong Kong','Macau','Taiwan','Mongolia'];
+    const southeast = ['Malaysia','Thailand','Singapore','Indonesia','Philippines','Vietnam','Cambodia','Laos','Myanmar','Brunei','Timor-Leste'];
+    const central = ['Kazakhstan','Kyrgyzstan','Tajikistan','Uzbekistan'];
+    if (south.includes(countryName)) return 'South Asia';
+    if (east.includes(countryName)) return 'East Asia';
+    if (southeast.includes(countryName)) return 'Southeast Asia';
+    if (central.includes(countryName)) return 'Central Asia';
+    return 'Other Asia';
+  }
+  if (regionName === 'Americas') {
+    const north = ['United States','Canada','Mexico'];
+    const south = ['Brazil','Argentina','Uruguay','Paraguay','Peru','Colombia','Ecuador','Bolivia','Chile','Venezuela'];
+    if (north.includes(countryName)) return 'North America';
+    if (south.includes(countryName)) return 'South America';
+    return 'Caribbean & Central America';
+  }
+  if (regionName === 'Middle East') return 'Middle East Countries';
+  if (regionName === 'Oceania') return 'Oceania Countries';
+  return 'Covered Countries';
+}
+
+function openCoverageDrawer() {
+  if (!currentCoverageCountries.length) return;
+  document.getElementById('coverageDrawerOverlay').classList.add('open');
+  document.getElementById('coverageSearch').value = '';
+  renderCoverageDrawer();
+}
+
+function closeCoverageDrawer(event) {
+  if (event && event.target !== document.getElementById('coverageDrawerOverlay')) return;
+  document.getElementById('coverageDrawerOverlay').classList.remove('open');
+}
+
+function renderCoverageDrawer() {
+  const q = (document.getElementById('coverageSearch').value || '').toLowerCase().trim();
+  const list = currentCoverageCountries.filter(c => c.country.toLowerCase().includes(q));
+  const container = document.getElementById('coverageDrawerList');
+  container.innerHTML = '';
+
+  if (!list.length) {
+    container.innerHTML = '<div class="drawer-empty">No country found.</div>';
+    return;
+  }
+
+  const groups = {};
+  list.forEach(c => {
+    const group = getCoverageGroup(currentCoverageRegion, c.country);
+    if (!groups[group]) groups[group] = [];
+    groups[group].push(c);
+  });
+
+  const preferred = currentCoverageRegion === 'Africa'
+    ? ['East Africa','West Africa','North Africa','Southern Africa','Central Africa','Other Africa']
+    : Object.keys(groups).sort();
+
+  preferred.forEach(groupName => {
+    if (!groups[groupName] || !groups[groupName].length) return;
+    const group = document.createElement('div');
+    group.className = 'drawer-group';
+    group.innerHTML = `<div class="drawer-group-title">${groupName}</div><div class="drawer-chip-list"></div>`;
+    const chips = group.querySelector('.drawer-chip-list');
+    groups[groupName].sort((a,b) => a.country.localeCompare(b.country)).forEach(c => {
+      const chip = document.createElement('span');
+      chip.className = 'drawer-chip';
+      chip.innerHTML = countryFlag(c.country) + ' ' + c.country;
+      chips.appendChild(chip);
+    });
+    container.appendChild(group);
+  });
+}
+
+function openRegionDetails(d) {
+  const regionCountries = getRegionCountries(d.region);
+  currentCoverageRegion = d.region;
+  currentCoverageCountries = regionCountries;
+
+  selectedCountry = {
+    country: d.region,
+    region: d.region,
+    weekly1gb: d.weekly1gb,
+    monthly10gb: d.monthly10gb,
+    countries: regionCountries
+  };
+
+  resetDetails();
+
+  document.getElementById('detailsFlag').innerHTML = '🌍';
+  document.getElementById('detailsCountry').textContent = d.region;
+  document.getElementById('weeklyPrice').textContent = fmt(d.weekly1gb);
+  document.getElementById('monthlyPrice').textContent = fmt(d.monthly10gb);
+
+  const entry = document.getElementById('coverageEntry');
+  const sub = document.getElementById('coverageEntrySub');
+  if (entry && sub) {
+    entry.style.display = 'flex';
+    sub.textContent = regionCountries.length + ' countries included. Tap to view coverage.';
+  }
+
+  const drawerTitle = document.getElementById('drawerTitle');
+  const drawerSub = document.getElementById('drawerSub');
+  if (drawerTitle) drawerTitle.textContent = d.region + ' coverage';
+  if (drawerSub) drawerSub.textContent = regionCountries.length + ' countries included in this regional package';
+
+  document.getElementById('listPage').classList.remove('active');
+  document.getElementById('detailsPage').classList.add('active');
+  document.getElementById('paymentPage').classList.remove('active');
+  document.getElementById('qrPage').classList.remove('active');
+  const regionCountriesPage = document.getElementById('regionCountriesPage');
+  if (regionCountriesPage) regionCountriesPage.classList.remove('active');
+}
+function backToList() {
+  document.getElementById('detailsPage').classList.remove('active');
+  document.getElementById('paymentPage').classList.remove('active');
+  document.getElementById('qrPage').classList.remove('active');
+  document.getElementById('regionCountriesPage')?.classList.remove('active');
+  document.getElementById('listPage').classList.add('active');
+}
+function updateBuyButton() {
+  const ok = !!selectedPackage && document.getElementById('agreeTerms').checked;
+  const btn = document.getElementById('buyBtn');
+  btn.disabled = !ok;
+  btn.classList.toggle('enabled', ok);
+}
+function selectDetailPackage(pkg, validity) {
+  selectedPackage = pkg;
+  selectedValidity = validity;
+  if (pkg === '1 GB') {
+    selectedPrice = document.getElementById('weeklyPrice').textContent;
+    document.getElementById('weeklyPkg').classList.add('selected');
+    document.getElementById('monthlyPkg').classList.remove('selected');
+  } else {
+    selectedPrice = document.getElementById('monthlyPrice').textContent;
+    document.getElementById('monthlyPkg').classList.add('selected');
+    document.getElementById('weeklyPkg').classList.remove('selected');
+  }
+  document.getElementById('summaryText').textContent = `${selectedCountry.country} • ${selectedPackage} • ${selectedValidity} • ${selectedPrice}`;
+  updateBuyButton();
+}
+function goToPayment() {
+  if (!selectedPackage || !document.getElementById('agreeTerms').checked) return;
+  document.getElementById('detailsPage').classList.remove('active');
+  document.getElementById('paymentPage').classList.add('active');
+  document.getElementById('payFlag').innerHTML = document.getElementById('detailsFlag').innerHTML;
+  document.getElementById('payCountry').textContent = selectedCountry.country;
+  document.getElementById('payPlan').textContent = selectedPackage;
+  document.getElementById('payValidity').textContent = selectedValidity;
+  document.getElementById('payTotal').textContent = selectedPrice;
+  selectedPaymentMethod = '';
+  document.getElementById('payEdahab').classList.remove('selected');
+  document.getElementById('payCard').classList.remove('selected');
+  document.getElementById('pinWrap').classList.remove('active');
+  document.getElementById('payNowBtn').disabled = true;
+  document.getElementById('payNowBtn').classList.remove('enabled');
+}
+function backToDetails() {
+  document.getElementById('paymentPage').classList.remove('active');
+  document.getElementById('detailsPage').classList.add('active');
+}
+function selectPaymentMethod(method) {
+  selectedPaymentMethod = method;
+  document.getElementById('payEdahab').classList.toggle('selected', method === 'edahab');
+  document.getElementById('payCard').classList.toggle('selected', method === 'card');
+  document.getElementById('pinWrap').classList.toggle('active', method === 'edahab');
+  document.getElementById('payNowBtn').disabled = !selectedPaymentMethod;
+  document.getElementById('payNowBtn').classList.toggle('enabled', !!selectedPaymentMethod);
+}
+function generateLpaString() {
+  const smdp = 'rsp.somtel.example';
+  const code = 'STL-' + Date.now().toString().slice(-8) + '-' + Math.random().toString(36).slice(2,8).toUpperCase();
+  return `LPA:1$${smdp}$${code}`;
+}
+function renderRealQr(lpa) {
+  const box = document.getElementById('qrReal');
+  box.innerHTML = '';
+  if (window.QRCode) {
+    new QRCode(box, { text: lpa, width: 180, height: 180, correctLevel: QRCode.CorrectLevel.M });
+  } else {
+    box.innerHTML = '<div class="small-note">QR library unavailable. Use the activation code below.</div>';
+  }
+  document.getElementById('activationCodeBox').textContent = lpa;
+}
+function completePayment() {
+  if (!selectedPaymentMethod) return;
+  if (window.deviceSupported === false) {
+    const proceed = confirm('Your device may not support eSIM. Continue anyway?');
+    if (!proceed) return;
+  }
+
+  const overlay = document.getElementById('paymentLoading');
+  const card = document.getElementById('loadingCard');
+  document.getElementById('loadingTitle').textContent = 'Processing payment';
+  document.getElementById('loadingSub').textContent = 'Please wait while we confirm your payment.';
+  card.classList.remove('success');
+  overlay.classList.add('open');
+
+  setTimeout(() => {
+    card.classList.add('success');
+    document.getElementById('loadingTitle').textContent = 'Payment successful';
+    document.getElementById('loadingSub').textContent = 'Your eSIM QR is ready.';
+  }, 1200);
+
+  setTimeout(() => {
+    overlay.classList.remove('open');
+    document.getElementById('paymentPage').classList.remove('active');
+    document.getElementById('qrPage').classList.add('active');
+    document.getElementById('qrFlag').innerHTML = document.getElementById('detailsFlag').innerHTML;
+    document.getElementById('qrSummary').textContent = selectedCountry.country + ' • ' + selectedPackage + ' • ' + selectedValidity + ' • ' + selectedPrice;
+    renderRealQr(generateLpaString());
+  }, 2100);
+}
+function backToPayment() {
+  document.getElementById('qrPage').classList.remove('active');
+  document.getElementById('paymentPage').classList.add('active');
+}
+function finishOrder() {
+  myEsims.unshift({
+    country: selectedCountry.country,
+    flag: countryFlag(selectedCountry.country),
+    plan: selectedPackage,
+    validity: selectedValidity,
+    price: selectedPrice,
+    status: 'Active',
+    remaining: selectedPackage === '10 GB' ? '10 GB' : '1 GB',
+    expiry: selectedValidity === '30 Days' ? '30 days remaining' : '7 days remaining'
+  });
+  renderMyEsims();
+  renderTopUp();
+  document.getElementById('qrPage').classList.remove('active');
+  document.getElementById('paymentPage').classList.remove('active');
+  document.getElementById('detailsPage').classList.remove('active');
+  document.getElementById('listPage').classList.add('active');
+  showMainPage('myEsimsPage');
+  resetDetails();
+}
+function renderMyEsims() {
+  const el = document.getElementById('esimsList');
+  el.innerHTML = '';
+  if (!myEsims.length) {
+    el.innerHTML = '<div class="esim-card"><div class="title">No eSIM yet</div><div class="sub">Your purchased eSIMs will appear here.</div></div>';
+    return;
+  }
+  myEsims.forEach((e, idx) => {
+    const card = document.createElement('div');
+    card.className = 'esim-card';
+    card.innerHTML = `
+      <div class="esim-head">
+        <div class="details-country"><span class="icon-pill">${e.flag}</span><span class="esim-name">${e.country}</span></div>
+        <div class="badge">${e.status}</div>
+      </div>
+      <div class="esim-meta">
+        <div class="k">Plan</div><div class="v">${e.plan}</div>
+        <div class="k">Validity</div><div class="v">${e.validity}</div>
+        <div class="k">Remaining</div><div class="v">${e.remaining}</div>
+        <div class="k">Expiry</div><div class="v">${e.expiry}</div>
+      </div>
+      <div class="action-row">
+        <button class="action-btn" onclick="openEsimQr(${idx})">View QR</button>
+        <button class="action-btn" onclick="showMainPage('topUpPage')">Top Up</button>
+      </div>`;
+    el.appendChild(card);
+  });
+}
+function openEsimQr(idx) {
+  const e = myEsims[idx];
+  showMainPage('shopPage');
+  document.getElementById('listPage').classList.remove('active');
+  document.getElementById('detailsPage').classList.remove('active');
+  document.getElementById('paymentPage').classList.remove('active');
+  document.getElementById('qrPage').classList.add('active');
+  document.getElementById('qrFlag').innerHTML = e.flag;
+  document.getElementById('qrSummary').textContent = e.country + ' • ' + e.plan + ' • ' + e.validity + ' • ' + e.price;
+  renderRealQr(generateLpaString());
+}
+function renderTopUp() {
+  const el = document.getElementById('topUpList');
+  el.innerHTML = '';
+  if (!myEsims.length) {
+    el.innerHTML = '<div class="esim-card"><div class="title">No active eSIM</div><div class="sub">Buy an eSIM first, then Top Up will appear here.</div></div>';
+    return;
+  }
+  myEsims.forEach((e, idx) => {
+    const found = countries.find(c => c.country === e.country) || {weekly1gb:0, monthly10gb:0};
+    const card = document.createElement('div');
+    card.className = 'esim-card';
+    card.innerHTML = `
+      <div class="esim-head">
+        <div class="details-country"><span class="icon-pill">${e.flag}</span><span class="esim-name">${e.country}</span></div>
+        <div class="badge">Top Up</div>
+      </div>
+      <div class="sub">Buy another bundle for this eSIM.</div>
+      <div class="action-row">
+        <button class="action-btn" onclick="startTopUp(${idx}, '1 GB', '7 Days', '${fmt(found.weekly1gb)}')">1 GB • 7 Days</button>
+        <button class="action-btn" onclick="startTopUp(${idx}, '10 GB', '30 Days', '${fmt(found.monthly10gb)}')">10 GB • 30 Days</button>
+      </div>`;
+    el.appendChild(card);
+  });
+}
+function startTopUp(idx, plan, validity, price) {
+  const e = myEsims[idx];
+  selectedCountry = { country: e.country };
+  selectedPackage = plan;
+  selectedValidity = validity;
+  selectedPrice = price;
+  showMainPage('shopPage');
+  document.getElementById('listPage').classList.remove('active');
+  document.getElementById('detailsPage').classList.remove('active');
+  document.getElementById('paymentPage').classList.add('active');
+  document.getElementById('payFlag').innerHTML = e.flag;
+  document.getElementById('payCountry').textContent = e.country;
+  document.getElementById('payPlan').textContent = selectedPackage;
+  document.getElementById('payValidity').textContent = selectedValidity;
+  document.getElementById('payTotal').textContent = selectedPrice;
+  selectedPaymentMethod = '';
+  document.getElementById('payEdahab').classList.remove('selected');
+  document.getElementById('payCard').classList.remove('selected');
+  document.getElementById('pinWrap').classList.remove('active');
+  document.getElementById('payNowBtn').disabled = true;
+  document.getElementById('payNowBtn').classList.remove('enabled');
+}
+document.getElementById('agreeTerms').addEventListener('change', updateBuyButton);
+detectDevice();
+renderList();
+renderMyEsims();
+renderTopUp();
+</script>
+
+</body></html>
